@@ -1,0 +1,6 @@
+"id";"name";"expiry_date";"section_id";"quantity";"sku";"category_id";"description";"status";"min_quantity";"price"
+1;"Panadol";"2027-12-25 05:00:00";1;189;"";2;"Test";"1";100;3.0
+2;"Panadol extended";"2027-12-25 05:00:00";1;468;"";2;"Test";"1";100;3.0
+3;"Disprin";"2027-12-25 05:00:00";1;300;"";2;"Tablets";"1";100;5.0
+4;"Hydrline";"2026-12-25 05:00:00";1;3;"";3;"Cough syrup";"1";2;110.0
+5;"Gravinate";"2026-12-25 05:00:00";1;0;"";3;"Syrup";"1";1;68.0
