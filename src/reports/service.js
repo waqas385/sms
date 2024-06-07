@@ -80,3 +80,36 @@ export async function getNearExpiryProducts(connection) {
     throw new Error(error);
   }
 }
+
+export async function salesReport(connection, priceType, salesFrom, salesTo, customerId) {
+  let where = `WHERE o.created_date BETWEEN '${salesFrom}' AND '${salesTo}'`;
+  if (priceType) {
+    where += ` AND o.price_type = ${priceType}`;
+  }
+  if (customerId) {
+    where += ` AND o.customer_id = ${customerId}`;
+  }
+
+  try {
+    let query = ` SELECT o.id,
+    o.price,
+    o.discount,
+    o.discounted_price,
+    o.customer_id,
+    DATE_FORMAT(o.created_date, '%d-%c-%Y %l:%i %p') AS order_creation_date,
+    c.customer_name,
+    c.phone_number,
+    CASE
+		WHEN o.price_type = 1 THEN 'Debit'
+        ELSE 'Credit'
+	  END as order_price_type
+    FROM inventory.orders o
+    LEFT JOIN inventory.customers c ON o.customer_id = c.id
+    ${where}`;
+    console.log(query);
+    let [results] = await connection.query(query);
+    return results;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

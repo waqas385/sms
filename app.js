@@ -17,6 +17,7 @@ import sectionsRouter from "./src/sections/route.js";
 import reportsRouter from "./src/reports/route.js";
 import uploadRouter from "./src/uploads/route.js";
 import returnsRouter from "./src/returns/route.js";
+import customerRouter from "./src/customers/route.js";
 
 var app = express();
 
@@ -41,6 +42,8 @@ app.use(appConfig.baseURI+'categories', categoriesRouter);
 app.use(appConfig.baseURI+'sections', sectionsRouter);
 app.use(appConfig.baseURI+'reports', reportsRouter);
 app.use(appConfig.baseURI+'returns', returnsRouter);
+app.use(appConfig.baseURI+'customers', customerRouter);
+
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

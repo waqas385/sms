@@ -31,9 +31,9 @@ export async function addItemsToOrder(connection, orderId, products) {
  * @param {*} products array of product {productId, quantity}
  * @returns 
  */
-export async function createOrder(connection, price, discount, discounted_price) {
+export async function createOrder(connection, price, discount, discounted_price, customer_id, price_type) {
   const createdDate = getCurrentDateTime();
-  let query = `INSERT INTO orders (created_date, price, discount, discounted_price) VALUES ('${createdDate}',${price},${discount},${discounted_price})`;
+  let query = `INSERT INTO orders (created_date, price, discount, discounted_price, customer_id, price_type) VALUES ('${createdDate}',${price},${discount},${discounted_price}, ${customer_id}, ${price_type})`;
   try {
     console.log(query);
     let [results] = await connection.query(query);
@@ -77,10 +77,18 @@ async function getOrdersTotalCount(connection, from, to) {
 export async function getOrders(connection, page, from, to) {
   const offset = page * pageCount;
   let limitOffsetQuery = "LIMIT " + pageCount + " OFFSET " + offset;
-  let whereQuery = `WHERE created_date BETWEEN '${from}' AND '${to}'`;
+  let whereQuery = `WHERE o.created_date BETWEEN '${from}' AND '${to}'`;
 
   try {
-    let query = `SELECT *, DATE_FORMAT(created_date, '%d-%c-%Y %l:%i %p') as creation_date FROM orders ${whereQuery} order by id desc ${limitOffsetQuery}`;
+    let query = `
+    SELECT o.*, DATE_FORMAT(created_date, '%d-%c-%Y %l:%i %p') as creation_date, c.customer_name, c.phone_number
+    FROM inventory.orders o
+    LEFT JOIN inventory.customers c
+    ON o.customer_id = c.id
+    ${whereQuery}
+    order by id desc
+    ${limitOffsetQuery}
+    `;
     console.log(query);
     const [orders] = await connection.query(query);
     const totalCount = await getOrdersTotalCount(connection, from, to);

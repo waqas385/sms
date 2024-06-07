@@ -8,9 +8,11 @@ export async function insert(connection, req) {
   const price = req.body.price;
   const discount = req.body.discount;
   const discounted_price = req.body.discounted_price;
+  const customer_id = req.body.customer_id;
+  const price_type = req.body.price_type;
 
   // Create order and add products to order
-  const orderId = await createOrder(connection, price, discount, discounted_price);
+  const orderId = await createOrder(connection, price, discount, discounted_price, customer_id, price_type);
   await addItemsToOrder(connection, orderId, products);
   // Update product(s) quantity
   const updatedProducts = await updateProductQuantity(connection, products);
