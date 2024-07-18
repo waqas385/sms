@@ -11,6 +11,7 @@ dist-ssr
 material
 *.code-workspace
 inventory.code-workspace
+public
 
 # Editor directories and files
 .vscode/*
