@@ -8,6 +8,9 @@ dist
 dist-ssr
 *.local
 *-lock.json
+material
+*.code-workspace
+inventory.code-workspace
 
 # Editor directories and files
 .vscode/*
@@ -19,3 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Configuration 
