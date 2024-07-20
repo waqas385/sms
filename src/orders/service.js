@@ -82,8 +82,8 @@ export async function getOrders(connection, page, from, to) {
   try {
     let query = `
     SELECT o.*, DATE_FORMAT(created_date, '%d-%c-%Y %l:%i %p') as creation_date, c.customer_name, c.phone_number
-    FROM inventory.orders o
-    LEFT JOIN inventory.customers c
+    FROM orders o
+    LEFT JOIN customers c
     ON o.customer_id = c.id
     ${whereQuery}
     order by id desc

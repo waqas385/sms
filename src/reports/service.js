@@ -103,8 +103,8 @@ export async function salesReport(connection, priceType, salesFrom, salesTo, cus
 		WHEN o.price_type = 1 THEN 'Debit'
         ELSE 'Credit'
 	  END as order_price_type
-    FROM inventory.orders o
-    LEFT JOIN inventory.customers c ON o.customer_id = c.id
+    FROM orders o
+    LEFT JOIN customers c ON o.customer_id = c.id
     ${where}`;
     console.log(query);
     let [results] = await connection.query(query);
