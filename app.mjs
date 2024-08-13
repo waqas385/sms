@@ -7,6 +7,7 @@ import fileUpload from "express-fileupload";
 import logger from "morgan";
 import { URL } from "url";
 import appConfig from "./app.config.js";
+import dotenv from "dotenv";
 
 const __dirname = new URL(".", import.meta.url).pathname;
 
@@ -19,8 +20,10 @@ import uploadRouter from "./src/uploads/route.js";
 import returnsRouter from "./src/returns/route.js";
 import customerRouter from "./src/customers/route.js";
 import expansesRouter from "./src/expanses/route.js";
+import authRouter from "./src/auth/route.js";
 
 var app = express();
+dotenv.config();
 
 app.use(cors());
 app.use(logger("dev"));
@@ -36,6 +39,7 @@ app.get(appConfig.baseURI, (req, res) => {
   })
 });
 
+app.use(appConfig.baseURI, authRouter);
 app.use(appConfig.baseURI+'uploads', uploadRouter);
 app.use(appConfig.baseURI+'products', productsRouter);
 app.use(appConfig.baseURI+'orders', orderRouter);
@@ -63,7 +67,7 @@ app.use(function (err, req, res, next) {
   res.json(err);
 });
 
-const port = 3000; // 3000 port
+const port = process.env.PORT || 3000; // 3000 port
 
 // export default app;
 
