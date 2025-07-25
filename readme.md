@@ -1,18 +1,5 @@
 # Inventory
 
-## DB Connection
-
-```
-
-const dbConfig = {
-  host: 'localhost',
-  user: 'waqasah1_test',
-  password: '1a7x?keyrz4^',
-  database: 'waqasah1_inventory',
-  dateStrings: true // to return date as from db table otherwise https://github.com/sidorares/node-mysql2/issues/262#issuecomment-241604$
-};
-```
-
 ## Problem faced while deployment
 
 ### Facing issue when uploaded project content to server
